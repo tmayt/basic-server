@@ -31,6 +31,9 @@ services:
       DB_MYSQL_USER: "npm_admin_7q"
       DB_MYSQL_PASSWORD: "jKL3!mNp82@vgTzQ"
       DB_MYSQL_NAME: "npm_db_7q"
+    volumes:
+      - app_data:/data
+      - ./letsencrypt:/etc/letsencrypt
 
   db:
     image: mariadb:10.5
@@ -45,4 +48,5 @@ services:
 volumes:
   dns_data:
   npm_db_data:
+  app_data:
   
