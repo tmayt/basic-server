@@ -9,7 +9,7 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
-      - "5380:5380"   # DNS-over-HTTPS/TLS (اختیاری)
+      - "5380:5380"
     environment:
       - DNS_SERVER_LOG_USING_LOCAL_TIME=true
       - DNS_SERVER_DOMAIN=dns-server
@@ -28,9 +28,9 @@ services:
     environment:
       DB_MYSQL_HOST: "db"
       DB_MYSQL_PORT: 3306
-      DB_MYSQL_USER: "npm_admin_7q"
-      DB_MYSQL_PASSWORD: "jKL3!mNp82@vgTzQ"
-      DB_MYSQL_NAME: "npm_db_7q"
+      DB_MYSQL_USER: "<your username>"
+      DB_MYSQL_PASSWORD: "<your password>"
+      DB_MYSQL_NAME: "<your database>"
     volumes:
       - app_data:/data
       - ./letsencrypt:/etc/letsencrypt
@@ -38,10 +38,10 @@ services:
   db:
     image: mariadb:10.5
     environment:
-      MYSQL_ROOT_PASSWORD: "R!t8bqX#P0mLpZ@k"
-      MYSQL_DATABASE: "npm_db_7q"
-      MYSQL_USER: "npm_admin_7q"
-      MYSQL_PASSWORD: "jKL3!mNp82@vgTzQ"
+      MYSQL_ROOT_PASSWORD: "<your password>"
+      MYSQL_DATABASE: "<your database>"
+      MYSQL_USER: "<your username>"
+      MYSQL_PASSWORD: "<your password>"
     volumes:
       - npm_db_data:/var/lib/mysql
 
@@ -49,4 +49,3 @@ volumes:
   dns_data:
   npm_db_data:
   app_data:
-  
