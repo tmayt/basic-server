@@ -16,7 +16,7 @@ Useful for local DNS resolution and easy management of reverse proxies with Let'
 
 ```bash
 git clone https://github.com/your-username/your-repo.git
-cd your-repo
+cd basic-server
 ```
 
 ### 2. Start the Services
