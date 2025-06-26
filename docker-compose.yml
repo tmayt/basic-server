@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  dns-server:
+    image: technitium/dns-server:latest
+    container_name: technitium-dns
+    restart: unless-stopped
+    hostname: dns-server
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+      - "5380:5380"   # DNS-over-HTTPS/TLS (اختیاری)
+    environment:
+      - DNS_SERVER_LOG_USING_LOCAL_TIME=true
+      - DNS_SERVER_DOMAIN=dns-server
+      - TZ=Europe/Berlin
+    volumes:
+      - dns_data:/etc/dns/
+      
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"       # UI port
+      - "443:443"
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+volumes:
+  dns_data:
