@@ -17,17 +17,32 @@ services:
     volumes:
       - dns_data:/etc/dns/
       
-  npm:
+  app:
     image: jc21/nginx-proxy-manager:latest
-    container_name: nginx-proxy-manager
-    restart: always
     ports:
       - "80:80"
-      - "81:81"       # UI port
+      - "81:81"
       - "443:443"
+    depends_on:
+      - db
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm_admin_7q"
+      DB_MYSQL_PASSWORD: "jKL3!mNp82@vgTzQ"
+      DB_MYSQL_NAME: "npm_db_7q"
+
+  db:
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: "R!t8bqX#P0mLpZ@k"
+      MYSQL_DATABASE: "npm_db_7q"
+      MYSQL_USER: "npm_admin_7q"
+      MYSQL_PASSWORD: "jKL3!mNp82@vgTzQ"
     volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+      - npm_db_data:/var/lib/mysql
 
 volumes:
   dns_data:
+  npm_db_data:
+  
